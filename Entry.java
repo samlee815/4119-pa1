@@ -28,7 +28,31 @@ public class Entry{
 	public void online (){
         this.online = true;
     }
+	
+	public String getIP(){
+		return this.IP;
+	}
 
+	public String format(){
+
+		String ret = IP + "\u2561"+Integer.toString(portNum);
+		if(this.online){
+			ret=ret+"\u2561"+Integer.toString(1);
+		}else{
+			ret=ret+"\u2561"+Integer.toString(0);
+		}
+		return ret;
+
+	}
+
+	public int getPort(){
+		return this.portNum;
+	}	
+
+	public boolean isonline(){
+		return this.online;
+	}
+	
 	/*public boolean equals(Object o){
 		if(o==this){return true;}
 		if (!(o instanceof Entry)) { 

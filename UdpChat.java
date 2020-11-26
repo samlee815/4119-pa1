@@ -15,6 +15,39 @@ public class UdpChat {
 	}
 
 
+	public static void transmitTable(HashMap<String,Entry> map,DatagramSocket servSock)throws Exception{
+		for(String key : map.keySet()){
+			InetAddress keyAddr = InetAddress.getByName(map.get(key).getIP());
+			int keyPort = map.get(key).getPort();
+			for(String k : map.keySet()){
+				if(!key.equals(k)){
+					byte buf[] = new byte[10000];
+					System.out.println(map.get(k).format());
+					String msg = "ent"+enc+k+enc+map.get(k).format();
+					System.out.println(msg);
+					buf = msg.getBytes();
+					DatagramPacket entry = new DatagramPacket(buf,buf.length,keyAddr,keyPort);
+					servSock.send(entry);
+				}
+			}
+		}
+	}
+
+	public static void transmitOffmsg(String nickname,HashMap<String,ArrayList<String>> offmsg,DatagramSocket servSock,InetAddress clntAddr,int clntPort) throws Exception{		ArrayList<String> offMsg = offmsg.get(nickname);
+		if(offMsg.size()==0){
+			//do nothing
+		}
+		else{
+			for(String s:offMsg){
+				byte buf[] = new byte[2048];
+				buf = s.getBytes();
+				DatagramPacket send = new DatagramPacket(buf,buf.length,clntAddr,clntPort);
+				servSock.send(send);
+
+			}
+
+		}
+	}
 	
 
 
@@ -22,6 +55,7 @@ public class UdpChat {
 		int recordCount = 0;
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
 		DatagramSocket servSock = new DatagramSocket(portNum);//throws Socket Exceptions
+		HashMap<String,ArrayList<String>> offmsg = new HashMap<>();
 		while(true){
 			System.out.print(">>>");
 			byte buf[] = new byte[2048];
@@ -41,33 +75,45 @@ public class UdpChat {
 			if(strings.length == 3){
 				if(strings[0].equals("reg")){
 					//registration request
+					boolean rereg = false;
 					int clntPort = Integer.parseInt(strings[2]);
 					if(map.containsKey(strings[1])){
 						map.get(strings[1]).update(reqAdd,clntPort,true);
+						rereg = true;
 					}
 					else{
 						map.put(strings[1],new Entry(reqAdd,clntPort));
+						ArrayList<String> temp = new ArrayList<>();
+						offmsg.put(strings[1],temp);
 					}
-					received="ack"+"\u2561"+"reg";
-					buf =new byte[2048];
-					buf = received.getBytes();
-					DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+					String res = "ack"+"\u2561"+"reg";
+					buf = new byte[2048];
+					buf = res.getBytes();
+					DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,clntPort);
 					servSock.send(response);
 					System.out.println("Client "+strings[1]+" is online");
+					transmitTable(map,servSock);
+					if(rereg){
+						transmitOffmsg(strings[1],offmsg,servSock,reqAddr,clntPort);
+					}
 				}
 				else if(strings[0].equals("der")){
 					//deregistration request
 					if(map.containsKey(strings[1])){
-                        map.get(strings[1]).update(reqAdd,reqPort,false);
-                    	received="ack"+"\u2561"+"der";
-						buf =new byte[2048];
-                    	buf = received.getBytes();
-						DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+                        int clntPort = Integer.parseInt(strings[2]);
+						map.get(strings[1]).update(reqAdd,reqPort,false);
+                    	String res = "ack"+"\u2561"+"der";
+						buf = new byte[2048];
+                    	buf = res.getBytes();
+						DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,clntPort);
                     	servSock.send(response);
-						System.out.println("Client "+strings[1]+" is online");
+						System.out.println("Client "+strings[1]+" is offline");
+						transmitTable(map,servSock);
 					}					
-				}else if(strings.[0].equals("off")){
-					
+				}else if(strings[0].equals("off")){
+					if(map.containsKey(strings[1])){
+
+					}					
 				}
 				
 			}else{
@@ -83,18 +129,19 @@ public class UdpChat {
         InetAddress servAddr = InetAddress.getByName(servIP);
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
         DatagramSocket clntSock = new DatagramSocket(clntPort);//throws Socket Exceptions
-		String s = "reg"+enc+nickname+enc+Integer.toString(servPort);
+		String s = "reg"+enc+nickname+enc+Integer.toString(clntPort);
 		buf = s.getBytes();
 
 		DatagramPacket request = new DatagramPacket(buf,buf.length,servAddr,servPort);
 		clntSock.send(request);
-		
-		DatagramPacket servMes = new DatagramPacket(buf,buf.length);
-		 clntSock.receive(servMes);
+		while(true){
+			buf = new byte[2048];
+			DatagramPacket servMes = new DatagramPacket(buf,buf.length);
+			clntSock.receive(servMes);
 
-		String received = new String(request.getData(),0,request.getLength());
-		System.out.println(received);
-
+			String received = new String(servMes.getData(),0,servMes.getLength());
+			System.out.println(received);
+		}
 	}	
 
 
