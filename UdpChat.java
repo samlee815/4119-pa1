@@ -20,11 +20,11 @@ public class UdpChat {
 
 	public static void serverLoop(int portNum) throws Exception{
 		int recordCount = 0;
-		byte buf[] = new byte[2048];
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
 		DatagramSocket servSock = new DatagramSocket(portNum);//throws Socket Exceptions
 		while(true){
 			System.out.print(">>>");
+			byte buf[] = new byte[2048];
 			DatagramPacket request = new DatagramPacket(buf,buf.length);
 			servSock.receive(request);
 			InetAddress reqAddr = request.getAddress();
@@ -38,36 +38,39 @@ public class UdpChat {
 			 * 3.deregistration request
 			 */
 			String[] strings = received.split(enc);
-			if(strings.length == 2){
+			if(strings.length == 3){
 				if(strings[0].equals("reg")){
 					//registration request
+					int clntPort = Integer.parseInt(strings[2]);
 					if(map.containsKey(strings[1])){
-						map.get(strings[1]).update(reqAdd,reqPort,true);
+						map.get(strings[1]).update(reqAdd,clntPort,true);
 					}
 					else{
-						map.put(strings[1],new Entry(reqAdd,reqPort));
+						map.put(strings[1],new Entry(reqAdd,clntPort));
 					}
 					received="ack"+"\u2561"+"reg";
+					buf =new byte[2048];
 					buf = received.getBytes();
 					DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
 					servSock.send(response);
-				}else if(strings[0].equals("der")){
+					System.out.println("Client "+strings[1]+" is online");
+				}
+				else if(strings[0].equals("der")){
 					//deregistration request
 					if(map.containsKey(strings[1])){
                         map.get(strings[1]).update(reqAdd,reqPort,false);
                     	received="ack"+"\u2561"+"der";
+						buf =new byte[2048];
                     	buf = received.getBytes();
-                    	DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+						DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
                     	servSock.send(response);
+						System.out.println("Client "+strings[1]+" is online");
 					}					
-				}
-				System.out.println("Client "+strings[1]+" is online");
-				
-			}
-			else if(strings.length == 3){
+				}else if(strings.[0].equals("off")){
 					
-			}
-			else{
+				}
+				
+			}else{
 				//Do nothing, discard the message.
 			}
 		}
@@ -80,12 +83,17 @@ public class UdpChat {
         InetAddress servAddr = InetAddress.getByName(servIP);
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
         DatagramSocket clntSock = new DatagramSocket(clntPort);//throws Socket Exceptions
-		String s = "req"+enc+nickname;
+		String s = "reg"+enc+nickname+enc+Integer.toString(servPort);
 		buf = s.getBytes();
 
 		DatagramPacket request = new DatagramPacket(buf,buf.length,servAddr,servPort);
 		clntSock.send(request);
 		
+		DatagramPacket servMes = new DatagramPacket(buf,buf.length);
+		 clntSock.receive(servMes);
+
+		String received = new String(request.getData(),0,request.getLength());
+		System.out.println(received);
 
 	}	
 
