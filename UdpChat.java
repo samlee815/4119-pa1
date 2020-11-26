@@ -4,6 +4,9 @@ import java.util.*;
 import java.net.*;
 import java.nio.channels.*;
 import mypack.Entry;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class UdpChat {
 	private static final String enc = "\u2561";	// our special delimiter and encryption of udp message
@@ -45,6 +48,7 @@ public class UdpChat {
 				servSock.send(send);
 
 			}
+			offMsg.clear();
 
 		}
 	}
@@ -61,6 +65,7 @@ public class UdpChat {
 			byte buf[] = new byte[2048];
 			DatagramPacket request = new DatagramPacket(buf,buf.length);
 			servSock.receive(request);
+			Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 			InetAddress reqAddr = request.getAddress();
 			String reqAdd = reqAddr.getHostAddress();
 			int reqPort = request.getPort();
@@ -112,7 +117,13 @@ public class UdpChat {
 					}					
 				}else if(strings[0].equals("off")){
 					if(map.containsKey(strings[1])){
-
+						if(map.get(strings[1]).isonline()){
+							//do nothing
+						}else{
+							//the 
+							String temp =timestamp.toString()+strings[2];
+							offmsg.get(strings[1]).add(strings[2]);
+						}
 					}					
 				}
 				
@@ -125,7 +136,31 @@ public class UdpChat {
 
 	public static void clientLoop(String nickname,String servIP,int servPort,int clntPort)throws Exception {
 		int recordCount = 0;
-        byte buf[] = new byte[2048];
+        boolean initReg = false;
+		InetAddress servAddr = InetAddress.getByName(servIP);
+	    HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
+	    DatagramSocket clntSock = new DatagramSocket(clntPort);//throws Socket Exceptions
+		while(!initReg){
+			byte buf[] = new byte[2048];
+	        String s = "reg"+enc+nickname+enc+Integer.toString(clntPort);
+	        buf = s.getBytes();        
+	        DatagramPacket request = new DatagramPacket(buf,buf.length,servAddr,servPort);
+	        clntSock.send(request);
+			buf = new byte[2048];
+            DatagramPacket servMes = new DatagramPacket(buf,buf.length);
+            clntSock.receive(servMes);
+			String received = new String(servMes.getData(),0,servMes.getLength());
+            String[] split = received.split(enc);
+			if(split[0].equals("ack") && split[1].equals("reg")){
+				initReg = true;
+			} 
+
+		}//end of initial registration
+		System.out.println("Welcome, you are registered");
+
+
+
+		/*byte buf[] = new byte[2048];
         InetAddress servAddr = InetAddress.getByName(servIP);
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
         DatagramSocket clntSock = new DatagramSocket(clntPort);//throws Socket Exceptions
@@ -134,8 +169,9 @@ public class UdpChat {
 
 		DatagramPacket request = new DatagramPacket(buf,buf.length,servAddr,servPort);
 		clntSock.send(request);
+	*/	
 		while(true){
-			buf = new byte[2048];
+			byte[] buf = new byte[2048];
 			DatagramPacket servMes = new DatagramPacket(buf,buf.length);
 			clntSock.receive(servMes);
 
