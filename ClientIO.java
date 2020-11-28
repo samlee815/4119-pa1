@@ -46,9 +46,13 @@ public class ClientIO implements Runnable{
 					}
 				}
 			}
-			if(inputs.length == 3){
+			if(inputs.length >= 3){
 				if(inputs[0].equals("send")){
-					String m = inputs[1] + enc +inputs[2];
+					String m = "";
+					for(int i = 2;i < inputs.length;i++){
+						m = m+" "+inputs[i];
+					}
+					m = inputs[1] + enc +m;
 					msg.add(m);
 //					System.out.println(m);
 				}

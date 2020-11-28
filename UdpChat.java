@@ -27,7 +27,8 @@ public class UdpChat {
 	}
 
 
-	public static void transmitTable(HashMap<String,Entry> map,DatagramSocket servSock)throws Exception{
+	public static void transmitTable(HashMap<String,Entry> map,DatagramSocket servSock){
+		try{
 		for(String key : map.keySet()){
 			InetAddress keyAddr = InetAddress.getByName(map.get(key).getIP());
 			int keyPort = map.get(key).getPort();
@@ -46,27 +47,40 @@ public class UdpChat {
             DatagramPacket entry = new DatagramPacket(buf,buf.length,keyAddr,keyPort);
             servSock.send(entry);
 		}
+		}catch(Exception e){
+	
+		}
 	}
 
-	public static void transmitOffmsg(String nickname,HashMap<String,ArrayList<String>> offmsg,DatagramSocket servSock,InetAddress clntAddr,int clntPort) throws Exception{		ArrayList<String> offMsg = offmsg.get(nickname);
-		if(offMsg.size()==0){
+	public static void transmitOffmsg(String nickname,HashMap<String,ArrayList<String>> offmsg,DatagramSocket servSock,InetAddress clntAddr,int clntPort) {		ArrayList<String> offMsg = offmsg.get(nickname);
+		try{
+			if(offMsg.size()==0){
 			//do nothing
-		}
-		else{
-			for(String s:offMsg){
-				byte buf[] = new byte[2048];
-				buf = s.getBytes();
-				DatagramPacket send = new DatagramPacket(buf,buf.length,clntAddr,clntPort);
-				servSock.send(send);
-
 			}
-			offMsg.clear();
+			else{
+				String k = "offhave";
+				byte buf[] = new byte[2048];
+            	buf = k.getBytes(); 
+            	DatagramPacket send = new DatagramPacket(buf,buf.length,clntAddr,clntPort);
+            	servSock.send(send);
+				for(String s:offMsg){
+					buf = new byte[2048];
+					buf = s.getBytes();
+					send = new DatagramPacket(buf,buf.length,clntAddr,clntPort);
+					servSock.send(send);
+
+				}
+				offMsg.clear();
+			}
+		}catch(Exception e){
+
 		}
 	}
 	
 
 
-	public static void serverLoop(int portNum) throws Exception{
+	public static void serverLoop(int portNum){
+		try{
 		int recordCount = 0;
 		HashMap<String,Entry> map = new HashMap<>();//the hashmap <key=nickname,value = entry>
 		DatagramSocket servSock = new DatagramSocket(portNum);//throws Socket Exceptions
@@ -88,7 +102,7 @@ public class UdpChat {
 			 * 2.offline message sent to server
 			 * 3.deregistration request
 			 */
-			System.out.println(received);//
+			//System.out.println(received);//
 			String[] strings = received.split(enc);
 			if(strings.length == 3){
 				if(strings[0].equals("reg")){
@@ -151,26 +165,35 @@ public class UdpChat {
 						transmitTable(map,servSock);
 					}					
 				}
-			}else if(strings.length == 4){  
+			}
+			else if(strings.length == 4){  
 				if(strings[0].equals("off")){
                     if(map.containsKey(strings[1])){
                         if(map.get(strings[1]).isonline()){
-                            //send back the the table entry
-							//because of 
-                        }else{
-                            //the 
-                            String temp ="off"+enc+"<"+strings[2]+"> "+timestamp.toString()+" "+strings[3];
-                            offmsg.get(strings[1]).add(strings[3]);
+
+						}else{
+                            //send the ack of offline message
+							String send = "ack"+enc+received;
+							buf = new byte[2048];
+	                        buf = send.getBytes();
+	                        DatagramPacket response = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+	                        servSock.send(response);
+//                            System.out.println(send);
+							String temp ="off"+enc+"<"+strings[2]+"> "+timestamp.toString()+" "+strings[3];
+                            offmsg.get(strings[1]).add(temp);
+//							System.out.println(temp);
                         }
-                    }
-                }
+                	}    
+				}
 			}// offline msg sent to server has format off|dest|sender|msg
+		}}catch(Exception i){
 		}
 	}	
 
-	public static boolean compareLoop(String msg,DatagramSocket clntSock,HashMap<String,Entry> map) throws Exception{
+	public static boolean compareLoop(String msg,DatagramSocket clntSock,HashMap<String,Entry> map){
 		boolean ret = true;
 		String e="ack"+enc;
+		try{
 		try{
 compare:
 			for(;;){
@@ -178,21 +201,35 @@ compare:
 				DatagramPacket pack = new DatagramPacket(buf,buf.length);
 				clntSock.receive(pack);
 				String received = new String(pack.getData(),0,pack.getLength());
-				String[] s=received.split(enc);
+				String[] s = received.split(enc);
 				if(received.replace(e,"").equals(msg)){
 					//message received
+					System.out.println("[Message received by "+s[2]+"]");
 					break compare;
+				}
+				if(s[0].equals("areyouonline")){
+					String ack ="imonline";
+					buf = new byte[2048];
+					buf = ack.getBytes();
+					int reqPort = pack.getPort();
+                    InetAddress reqAddr = pack.getAddress();
+                    pack = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+                    clntSock.send(pack);
+				}
+				if(s[0].equals("offhave")){
+					System.out.println("[You have message]");
 				}
 				if(s.length == 2){
 					if(s[0].equals("ent") && s[1].equals("end")){
 						System.out.println("[Client table updated]");
+						System.out.print(">>>");
 					}else if(s[0].equals("off")){
                         System.out.println("Offline msg :"+s[1]);
                     }
 				}else if (s.length == 4){
 
 					if(s[0].equals("msg")){
-						String ack =e+received;
+						String ack = e+received;
 						buf = new byte[2048];
 						buf = ack.getBytes();
 						int reqPort = pack.getPort();
@@ -204,20 +241,191 @@ compare:
 
 
 
+				}else if (s.length == 5){
+						if(s[0].equals("ent")){
+							String entNick = s[1];
+							String entIP = s[2];
+							int entPort =Integer.parseInt(s[3]);
+							boolean entOnline = true;
+							if(Integer.parseInt(s[4]) == 0){
+								entOnline = false;
+							}
+							if(map.containsKey(entNick)){
+								map.get(entNick).update(entIP,entPort,entOnline);
+
+							}else{
+								Entry temp = new Entry(entIP,entPort);
+								temp.update(entIP,entPort,entOnline);
+								map.put(entNick,temp);
+								
+							}
+
+
+						}
+
 				}
 				
 			}
 		}catch(SocketTimeoutException ex){
-
 			ret = false;
 		}
+		}catch(Exception i){
 
+		}
 		return ret;
+	}
+
+
+	public static void offLoop(String msg,DatagramSocket clntSock,HashMap<String,Entry> map){
+        String e="ack"+enc;
+		int count = 0;
+		try{
+compare:
+		for(count = 0; count <5;){
+        	try{
+            	for(;;){
+                	byte buf[] = new byte[2048];
+                	DatagramPacket pack = new DatagramPacket(buf,buf.length);
+                	clntSock.receive(pack);
+                	String received = new String(pack.getData(),0,pack.getLength());
+                	String[] s = received.split(enc);
+                	if(received.replace(e,"").equals(msg)){
+                    	//message received
+                    	System.out.println("[Message received by server and saved]");
+						break compare;
+                	}
+					if(s[0].equals("areyouonline")){
+	                    String ack ="imonline";
+	                    buf = new byte[2048];
+	                    buf = ack.getBytes();
+	                    int reqPort = pack.getPort();
+	                    InetAddress reqAddr = pack.getAddress();
+	                    pack = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+	                    clntSock.send(pack);
+	                }
+					if(s[0].equals("offhave")){
+						System.out.println("[You have message]");
+					}
+					
+                	if(s.length == 2){
+                    	if(s[0].equals("ent") && s[1].equals("end")){
+                        	System.out.println("[Client table updated]");
+                    	}else if(s[0].equals("off")){
+                        	System.out.println("Offline msg :"+s[1]);
+                    	}
+                	}else if (s.length == 4){
+
+                    	if(s[0].equals("msg")){
+                        	String ack =e+received;
+                        	buf = new byte[2048];
+                        	buf = ack.getBytes();
+                        	int reqPort = pack.getPort();
+                        	InetAddress reqAddr = pack.getAddress();
+                        	pack = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+                        	clntSock.send(pack);
+                        	System.out.println(s[2]+":"+s[3]);
+
+                    	}
+					}else if (s.length == 5){
+                    	    if(s[0].equals("ent")){
+                        	    String entNick = s[1];
+                            	String entIP = s[2];
+                            	int entPort =Integer.parseInt(s[3]);
+                            	boolean entOnline = true;
+                            	if(Integer.parseInt(s[4]) == 0){
+                                	entOnline = false;
+                            	}
+                            	if(map.containsKey(entNick)){
+                                	map.get(entNick).update(entIP,entPort,entOnline);
+
+                            	}else{
+                                	Entry temp = new Entry(entIP,entPort);
+                                	temp.update(entIP,entPort,entOnline);
+                                	map.put(entNick,temp);
+                            	}
+                        	}
+               		}
+
+            	}
+        	}catch(SocketTimeoutException ex){
+            	count++;
+        	}
+		}
+		if(count>=5){
+            System.out.println("[Server not responding]");
+            System.out.println("[Exiting]");
+			System.exit(1);
+		}}catch(Exception i){
+		}
+	}
+
+	public static void handle(DatagramSocket clntSock,HashMap<String,Entry> map){
+		try{
+			String e ="ack"+enc;
+			byte buf[] = new byte[2048];
+            DatagramPacket pack = new DatagramPacket(buf,buf.length);
+			clntSock.receive(pack);
+            String received = new String(pack.getData(),0,pack.getLength());
+            String[] s=received.split(enc);
+			if(s[0].equals("areyouonline")){
+                String ack ="imonline";
+                buf = new byte[2048];
+                buf = ack.getBytes();
+                int reqPort = pack.getPort();
+                InetAddress reqAddr = pack.getAddress();
+                pack = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+                clntSock.send(pack);
+            }
+			if(s[0].equals("offhave")){
+                  System.out.println("[You have message]");
+	        }
+			if(s.length == 2){
+				if(s[0].equals("ent") && s[1].equals("end")){
+					System.out.println("[Client table updated]");
+		        }else if(s[0].equals("off")){
+					System.out.println("Offline msg :"+s[1]);
+		        }
+			}else if (s.length == 4){
+				if(s[0].equals("msg")){
+					String ack =e+received;
+					buf = new byte[2048];
+					buf = ack.getBytes();
+                    int reqPort = pack.getPort();
+                    InetAddress reqAddr = pack.getAddress();
+					pack = new DatagramPacket(buf,buf.length,reqAddr,reqPort);
+					clntSock.send(pack);
+					System.out.println(s[2]+":"+s[3]);
+				}
+			}else if (s.length == 5){
+				if(s[0].equals("ent")){
+					String entNick = s[1];
+					String entIP = s[2];
+					int entPort =Integer.parseInt(s[3]);
+					boolean entOnline = true;
+					if(Integer.parseInt(s[4]) == 0){
+						entOnline = false;
+					}
+					if(map.containsKey(entNick)){
+						map.get(entNick).update(entIP,entPort,entOnline);
+					}else{
+						Entry temp = new Entry(entIP,entPort);
+						temp.update(entIP,entPort,entOnline);
+						map.put(entNick,temp);
+					}
+				}
+			}
+
+		}catch(SocketTimeoutException e){
+
+		}catch(Exception e){
+
+		}
+
 	}
 	
 
-	public static void clientLoop(String nickname,String servIP,int servPort,int clntPort)throws Exception {
-		//int recordCount = 0;
+	public static void clientLoop(String nickname,String servIP,int servPort,int clntPort){
+		try{
         boolean initReg = false;
 		boolean clntOnline = false;
 		InetAddress servAddr = InetAddress.getByName(servIP);
@@ -231,7 +439,6 @@ compare:
 		List<String> synmsg = Collections.synchronizedList(msg); 
 		ArrayList<String> regis = new ArrayList<>();
 		List<String> synreg = Collections.synchronizedList(regis);
-		//Selector selector = Selector.open();	
 	
 		System.out.print(">>>");
 		while(!initReg){
@@ -244,9 +451,6 @@ compare:
             DatagramPacket servMes = new DatagramPacket(buf,buf.length);
             clntSock.receive(servMes);
 			String received = new String(servMes.getData(),0,servMes.getLength());
-            //String received = new String(buf.array(),"UTF-8");
-
-			//System.out.println(received);
 			String[] split = received.split(enc);
 			if(split[0].equals("ack") && split[1].equals("reg")){
 				initReg = true;
@@ -272,7 +476,6 @@ compare:
 			while (synreg.size() != 0) {
 				//we have pending registration msg
 				String entry = synreg.get(0);
-				//System.out.println(entry);
 				synreg.remove(0);
 				String temp[] = entry.split(enc);
 				if(temp[0].equals("reg")){
@@ -285,7 +488,6 @@ outloopone:
 						buf = send.getBytes();
             			DatagramPacket mes = new DatagramPacket(buf,buf.length,servAddr,servPort);
 						clntSock.send(mes);
-						System.out.println(count);
 						buf = new byte[2048];	
 						DatagramPacket servMes = new DatagramPacket(buf,buf.length);
             			try{
@@ -326,7 +528,7 @@ outlooptwo:
                         buf = send.getBytes();
                         DatagramPacket mes = new DatagramPacket(buf,buf.length,servAddr,servPort);
                         clntSock.send(mes);
-                        System.out.println(count);
+//                        System.out.println(count);
                         buf = new byte[2048];
                         DatagramPacket servMes = new DatagramPacket(buf,buf.length);
                         try{
@@ -338,7 +540,8 @@ outlooptwo:
                                 if(s[0].equals("ack")&&s[1].equals("der")){
                                     System.out.println("[You are offline, bye]");
                                     System.out.print(">>>");
-                                    break outlooptwo;
+                                    clntOnline = false;
+									break outlooptwo;
                                 }
                             }}
 
@@ -350,7 +553,6 @@ outlooptwo:
                         	System.out.println("[Exiting]");
                         	System.exit(1);
 						}
-						clntOnline = false ;
 					}			
 					//dereg complete 	
 				}
@@ -360,8 +562,7 @@ outlooptwo:
 			if (!clntOnline){
 				continue;			
 			}
-			// if the 
-
+			
 			while(synmsg.size()!=0){
                 //we have pending message and we dequeue the message and process it
                 String entry = synmsg.get(0);
@@ -370,54 +571,43 @@ outlooptwo:
                 String target = s[0];
                 String mes = s[1];
                 if(map.containsKey(target)){
-                    boolean tarOnline = true;
+                    boolean tarOnline = false;
 					if(map.get(target).isonline()){
                         String send = "msg"+enc+target+enc+nickname+enc+mes;
-                        System.out.println(send);
 						Entry tar = map.get(target);
 						byte buf[] = new byte[2048];
                         buf = send.getBytes();
                         DatagramPacket se = new DatagramPacket(buf,buf.length,InetAddress.getByName(tar.getIP()),tar.getPort());
                         clntSock.send(se);
-                    }else{
-                        //destination is offline
-                    
+						tarOnline = compareLoop(send,clntSock,map);	
                     }
-
+					
+					if(!tarOnline){
+						System.out.println("No ack from "+target+",send message to server");
+						String send = "off"+enc+target+enc+nickname+enc+mes;
+                        Entry tar = map.get(target);
+                        byte buf[] = new byte[2048];
+                        buf = send.getBytes();
+                        DatagramPacket se = new DatagramPacket(buf,buf.length,servAddr,servPort);
+                        clntSock.send(se);
+						offLoop(send,clntSock,map);
+					}
 
                 }
 
             }
 			if(clntOnline){
-				byte buf[] =new byte[2048];
-				DatagramPacket re = new DatagramPacket(buf,buf.length);
-				try{
-					clntSock.receive(re);
-                	String received = new String(re.getData(),0,re.getLength());
-                	String[] s=received.split(enc);
-					System.out.println(received);
-
-				}catch(SocketTimeoutException e){
-                 //           count++;
-                }
+				handle(clntSock,map);
 			}
-			
-			
-			//System.out.println(">>>");
-			
-			//ByteBuffer buf = ByteBuffer.allocate(2048);		
-			//byte[] buf = new byte[2048];
-			//DatagramPacket servMes = new DatagramPacket(buf,buf.length);
-			//clntChannel.read(buf);
+		}}catch (Exception e){
 
-			//String received = new String(buf.array());
 		}
 	}	
 
 
 
 
-	public static void main (String[] args) throws Exception{
+	public static void main (String[] args) {
 		boolean servMode= false;
 		int servPort = 0;
 		String servIP = "";
@@ -427,7 +617,7 @@ outlooptwo:
 		/* error checking of command line arguments
 		 * also parse the command line argument 
 		 */
-
+		try{
 		if(!(args.length == 2 || args.length == 5)){
 			invalidArgs();
 		}
@@ -480,18 +670,15 @@ outlooptwo:
 	
 		if(servMode){
 				serverLoop(servPort);
-/*			try{
-				serverLoop(servPort);
-
-			}catch(Exception e){
-				System.out.println("Exception in server");
-			}
-*/
 		}else{
 
 			clientLoop(nickname,servIP,servPort,clntPort);
 		}
+		}catch(Exception e){
+			System.out.println("error binding the port");
+			System.exit(1);
 
+		}
 	}
 }
 
