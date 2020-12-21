@@ -1,4 +1,5 @@
 default:
+	javac -d ./ printTable.java timer.java
 	javac -Xlint dvnode.java
 
 all: default
