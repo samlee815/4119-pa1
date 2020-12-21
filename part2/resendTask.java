@@ -25,7 +25,7 @@ import java.util.concurrent.*;
 
 
 
-public class resendTask extends TimerTask{
+public class resendTask extends TimerTask implements Runnable{
     List<Character> msg;
     InetAddress addr;
     int selfPort;

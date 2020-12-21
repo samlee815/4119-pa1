@@ -86,7 +86,8 @@ public class gbnnode{
 
 			DatagramSocket sock = new DatagramSocket(selfPort);
 			resendTask task = new resendTask(sock,sendMsg,addr,peerPort,windowSize,bools);
-			timer tm = new timer(task);
+			ScheduledThreadPoolExecutor sched = new ScheduledThreadPoolExecutor(10);
+			timer tm = new timer(task,sched);
 
 			SenderSide sendRec = new SenderSide(sock,tm,sendMsg,addr,selfPort,peerPort,windowSize,mode,bools,dVal,pVal);//senderside receiving thread
             Thread k = new Thread(sendRec);

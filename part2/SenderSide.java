@@ -47,7 +47,8 @@ public class SenderSide implements Runnable{
 	boolean parray[];
 	int recCount = 0;
 	int disCount = 0;
-
+	ScheduledThreadPoolExecutor sched;
+	resendTask task;
 
 
 	public SenderSide(DatagramSocket sock,timer t,List<Character> msg,InetAddress addr,int selfPort,int peerPort,int winSize, int mode, List<Boolean> bools,
@@ -66,7 +67,6 @@ int dvalue,double pvalue){
 		this.pvalue = pvalue;
 		this.parray = prob(pvalue);
 	}
-
 
 
 	public boolean[] prob(double p){
@@ -100,6 +100,16 @@ int dvalue,double pvalue){
 			bools.set(i,true);
 		}
 	}
+
+
+
+
+
+
+
+
+
+
 	
 
 
