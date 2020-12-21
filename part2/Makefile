@@ -1,9 +1,9 @@
 default:
-	javac -d ./ Entry.java ClientIO.java
-	javac UdpChat.java
+	javac -d ./ GbnIO.java resendTask.java timer.java SenderSide.java
+	javac gbnnode.java
 
 all: default
 
 clean:
-	rm -rf mypack
+	rm -rf pack2
 	rm -rf *.class
