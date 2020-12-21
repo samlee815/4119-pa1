@@ -58,7 +58,7 @@ public class dvnode{
 	}
 	//udp packet format packet size|source|seqnumber|node 1|distance 1|...|node n|distance n|
 
-	public static boolean decodeMsg(ByteBuffer b,Timestamp t,int localport, HashMap<Integer,Double> dt, HashMap<Integer,Integer> ht,List<Integer> nlist,List<Double> ndlist){
+	public static boolean decodeMsg(HashMap<Integer,HashMap<Integer,Double>>vector,ByteBuffer b,Timestamp t,int localport, HashMap<Integer,Double> dt, HashMap<Integer,Integer> ht,List<Integer> nlist,List<Double> ndlist){
 		boolean ret = false;
 		try{
 			int msgSize = b.getInt();
@@ -67,30 +67,56 @@ public class dvnode{
 			double sourcedistance = ndlist.get(nlist.indexOf(sourceport));
 			System.out.printf("%s Msg received at Node: %d from Node: %d\n",t.toString(),localport,sourceport);
 			int size = (msgSize - 12)/12;
+			HashMap<Integer,Double> sourceMap = new HashMap<>();
 			for(int i =0;i<size;i++){
 				int node = b.getInt();
 				double distance = b.getDouble();
+				sourceMap.put(node,distance);
+			}
+			vector.put(sourceport,sourceMap);
+
+
+			for(int node :sourceMap.keySet()){
+				if(node == localport){
+
+					continue;
+				}
 				if(dt.containsKey(node)){
-					double prevDis = dt.get(node);
-					if(prevDis>(distance+sourcedistance)){
-						dt.replace(node,distance+sourcedistance);
-						ht.replace(node,sourceport);
-						Timestamp time = new Timestamp(System.currentTimeMillis());
-						System.out.printf("%s Updating distance to %d ,distance %f\n",time.toString(),node,sourcedistance+distance);
-						ret = true;
-					}else{
-						//update does not happen, do nothing
+					double min= 1000000;//because we know distance is less than 1, we can use 100000 as intial max  
+					int minhop = 0;
+					for(int hop:nlist){
+						if(vector.containsKey(hop)){
+							HashMap<Integer,Double> temp = vector.get(hop);
+							if(temp.containsKey(node)){
+								if(min>(ndlist.get(nlist.indexOf(hop))+temp.get(node))){
+									min = ndlist.get(nlist.indexOf(hop))+temp.get(node);
+									minhop = hop;
+								}
+							}else{
+								continue;
+							}
+						}else{
+							continue;
+						}
 					}
+					if(dt.get(node)!=min){
+						dt.put(node,min);
+                    	ht.put(node,minhop);
+						Timestamp time = new Timestamp(System.currentTimeMillis());
+                        System.out.printf("%s Updating distance to %d ,distance %f\n",time.toString(),node,min);
+                        ret = true;
+					
+					}
+
 				}else{
-					// formerly unreachable node
-					dt.put(node,sourcedistance+distance);
-					ht.put(node,sourceport);
-					Timestamp time = new Timestamp(System.currentTimeMillis());
-					System.out.printf("%s adding to %d reachable nodes,distance %f\n",time.toString(),node,sourcedistance+distance);
-					ret = true;
+					dt.put(node,sourcedistance+sourceMap.get(node));
+                    ht.put(node,sourceport);
+                    Timestamp time = new Timestamp(System.currentTimeMillis());
+                    System.out.printf("%s adding to %d reachable nodes,distance %f\n",time.toString(),node,sourcedistance+sourceMap.get(node));
+                    ret = true;
 				}
 
-		
+
 			}
 			return ret;
 		}catch(Exception e){
@@ -98,6 +124,8 @@ public class dvnode{
 			return ret;
 		}
 	}
+
+
 
 
 
@@ -134,6 +162,9 @@ public class dvnode{
 			//parsed command line input
 			HashMap<Integer,Double> disTable = new HashMap<>();
 			HashMap<Integer,Integer> hopTable = new HashMap<>();
+			HashMap<Integer,HashMap<Integer,Double>> vector = new HashMap<>();
+
+
 			for(int i=0; i <neighborList.size();i++){
 				disTable.put(neighborList.get(i),neiDistanceList.get(i));
 				hopTable.put(neighborList.get(i),neighborList.get(i));
@@ -168,7 +199,7 @@ public class dvnode{
 				ByteBuffer b = ByteBuffer.allocate(200);
 				b.put(buf);
 				b.rewind();
-				boolean update = decodeMsg(b,timestamp,localport,disTable,hopTable,neighborList,neiDistanceList);
+				boolean update = decodeMsg(vector,b,timestamp,localport,disTable,hopTable,neighborList,neiDistanceList);
 				if(update || init ){
 					byte b2[] = formMsg(disTable,localport,seqNum);
 	                for(int i : neighborList){
