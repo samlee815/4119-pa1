@@ -1,0 +1,629 @@
+TEST.txt
+
+command line arguments:
+
+java cnnode 1111 receive send 2222 3333
+java cnnode 2222 receive 1111 .1 send 3333 4444
+java cnnode 3333 receive 1111 .5 2222 .2 send 4444
+java cnnode 4444 receive 2222 .8 3333 .5 send last
+
+Output1:
+
+
+3333 0.000000
+4444 0.000000
+[2020-12-24 07:59:14.356] Link to 2222: 6 packets sent, 5 packets lost, loss rate 0.833333
+[2020-12-24 07:59:14.516] Link to 3333: 6 packets sent, 5 packets lost, loss rate 0.833333
+
+[2020-12-24 07:59:14.97] Node 1111 Routing Table
+- (0.833) -> Node 3333; Next hop -> Node 3333
+- (0.000) -> Node 4444; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:15.472] Node 1111 Routing Table
+- (0.833) -> Node 3333; Next hop -> Node 3333
+- (1.389) -> Node 4444; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:15.517] Link to 2222: 6429 packets sent, 640 packets lost, loss rate 0.099549
+[2020-12-24 07:59:15.518] Link to 3333: 1372 packets sent, 673 packets lost, loss rate 0.490525
+
+[2020-12-24 07:59:15.974] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (1.389) -> Node 4444; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:16.475] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:16.52] Link to 2222: 19674 packets sent, 1922 packets lost, loss rate 0.097692
+[2020-12-24 07:59:16.52] Link to 3333: 2260 packets sent, 1115 packets lost, loss rate 0.493363
+
+[2020-12-24 07:59:16.977] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:17.478] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:17.521] Link to 2222: 34071 packets sent, 3364 packets lost, loss rate 0.098735
+[2020-12-24 07:59:17.521] Link to 3333: 4026 packets sent, 1959 packets lost, loss rate 0.486587
+
+[2020-12-24 07:59:17.98] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:18.484] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:18.522] Link to 2222: 53067 packets sent, 5274 packets lost, loss rate 0.099384
+[2020-12-24 07:59:18.523] Link to 3333: 6117 packets sent, 3010 packets lost, loss rate 0.492071
+
+[2020-12-24 07:59:18.985] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:19.49] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:19.524] Link to 2222: 74535 packets sent, 7396 packets lost, loss rate 0.099229
+[2020-12-24 07:59:19.525] Link to 3333: 6907 packets sent, 3411 packets lost, loss rate 0.493847
+
+[2020-12-24 07:59:19.991] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:20.493] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:20.529] Link to 2222: 86067 packets sent, 8541 packets lost, loss rate 0.099237
+[2020-12-24 07:59:20.53] Link to 3333: 7542 packets sent, 3723 packets lost, loss rate 0.493636
+
+[2020-12-24 07:59:20.995] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:21.496] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:21.53] Link to 2222: 104137 packets sent, 10392 packets lost, loss rate 0.099792
+[2020-12-24 07:59:21.531] Link to 3333: 9052 packets sent, 4481 packets lost, loss rate 0.495029
+
+[2020-12-24 07:59:21.998] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:22.503] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:22.531] Link to 2222: 122125 packets sent, 12193 packets lost, loss rate 0.099840
+[2020-12-24 07:59:22.531] Link to 3333: 10487 packets sent, 5188 packets lost, loss rate 0.494708
+
+[2020-12-24 07:59:23.006] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:23.507] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:23.536] Link to 2222: 133778 packets sent, 13395 packets lost, loss rate 0.100129
+[2020-12-24 07:59:23.536] Link to 3333: 13827 packets sent, 6837 packets lost, loss rate 0.494467
+
+[2020-12-24 07:59:24.008] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:24.509] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:24.541] Link to 2222: 151007 packets sent, 15107 packets lost, loss rate 0.100042
+[2020-12-24 07:59:24.541] Link to 3333: 14964 packets sent, 7419 packets lost, loss rate 0.495790
+
+[2020-12-24 07:59:25.011] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:25.513] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:25.541] Link to 2222: 165332 packets sent, 16530 packets lost, loss rate 0.099981
+[2020-12-24 07:59:25.542] Link to 3333: 15977 packets sent, 7905 packets lost, loss rate 0.494774
+
+[2020-12-24 07:59:26.015] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:26.516] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:26.542] Link to 2222: 177563 packets sent, 17729 packets lost, loss rate 0.099846
+[2020-12-24 07:59:26.542] Link to 3333: 16667 packets sent, 8233 packets lost, loss rate 0.493970
+
+[2020-12-24 07:59:27.018] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:27.52] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:27.543] Link to 2222: 191719 packets sent, 19128 packets lost, loss rate 0.099771
+[2020-12-24 07:59:27.543] Link to 3333: 19475 packets sent, 9660 packets lost, loss rate 0.496021
+
+[2020-12-24 07:59:28.021] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:28.522] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:28.547] Link to 2222: 206241 packets sent, 20640 packets lost, loss rate 0.100077
+[2020-12-24 07:59:28.548] Link to 3333: 20378 packets sent, 10099 packets lost, loss rate 0.495583
+
+[2020-12-24 07:59:29.024] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:29.527] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:29.548] Link to 2222: 222404 packets sent, 22216 packets lost, loss rate 0.099890
+[2020-12-24 07:59:29.548] Link to 3333: 20858 packets sent, 10342 packets lost, loss rate 0.495829
+
+[2020-12-24 07:59:30.028] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:30.529] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:30.549] Link to 2222: 234078 packets sent, 23378 packets lost, loss rate 0.099873
+[2020-12-24 07:59:30.549] Link to 3333: 22812 packets sent, 11356 packets lost, loss rate 0.497808
+
+[2020-12-24 07:59:31.031] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:31.534] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:31.55] Link to 2222: 247306 packets sent, 24697 packets lost, loss rate 0.099864
+[2020-12-24 07:59:31.55] Link to 3333: 23862 packets sent, 11890 packets lost, loss rate 0.498282
+
+[2020-12-24 07:59:32.036] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:32.538] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+[2020-12-24 07:59:32.552] Link to 2222: 267335 packets sent, 26631 packets lost, loss rate 0.099617
+[2020-12-24 07:59:32.552] Link to 3333: 25096 packets sent, 12519 packets lost, loss rate 0.498844
+
+[2020-12-24 07:59:33.039] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:33.541] Node 1111 Routing Table
+- (0.309) -> Node 3333; Next hop -> Node 2222
+- (0.933) -> Node 4444; Next hop -> Node 2222
+- (0.100) -> Node 2222; Next hop -> Node 2222
+
+[2020-12-24 07:59:33.554] Link to 2222: 291820 packets sent, 29035 packets lost, loss rate 0.099496
+[2020-12-24 07:59:33.554] Link to 3333: 25473 packets sent, 12716 packets lost, loss rate 0.499195
+
+[2020-12-24 07:59:34.042] Node 1111 Routing Table
+- (0.300) -> Node 3333; Next hop -> Node 2222
+- (0.795) -> Node 4444; Next hop -> Node 2222
+- (0.100) -> Node 2222; Next hop -> Node 2222
+
+
+[2020-12-24 07:59:34.543] Node 1111 Routing Table
+- (0.300) -> Node 3333; Next hop -> Node 2222
+- (0.795) -> Node 4444; Next hop -> Node 2222
+- (0.100) -> Node 2222; Next hop -> Node 2222
+
+[2020-12-24 07:59:34.558] Link to 2222: 343025 packets sent, 34206 packets lost, loss rate 0.099719
+[2020-12-24 07:59:34.558] Link to 3333: 25523 packets sent, 12766 packets lost, loss rate 0.500176
+
+[2020-12-24 07:59:35.044] Node 1111 Routing Table
+- (0.300) -> Node 3333; Next hop -> Node 2222
+- (0.795) -> Node 4444; Next hop -> Node 2222
+- (0.100) -> Node 2222; Next hop -> Node 2222
+
+
+[2020-12-24 07:59:35.545] Node 1111 Routing Table
+- (0.300) -> Node 3333; Next hop -> Node 2222
+- (0.795) -> Node 4444; Next hop -> Node 2222
+- (0.100) -> Node 2222; Next hop -> Node 2222
+
+
+Output 2:
+
+
+3333 0.000000
+[2020-12-24 07:59:14.347] Link to 3333: 6 packets sent, 5 packets lost, loss rate 0.833333
+[2020-12-24 07:59:14.478] Link to 4444: 12 packets sent, 10 packets lost, loss rate 0.833333
+
+[2020-12-24 07:59:14.867] Node 2222 Routing Table
+- (0.833) -> Node 3333; Next hop -> Node 3333
+- (0.000) -> Node 1111; Next hop -> Node 1111
+- (0.000) -> Node 4444; Next hop -> Node 1111
+
+
+[2020-12-24 07:59:15.37] Node 2222 Routing Table
+- (0.833) -> Node 3333; Next hop -> Node 3333
+- (0.833) -> Node 1111; Next hop -> Node 1111
+- (0.833) -> Node 4444; Next hop -> Node 1111
+
+[2020-12-24 07:59:15.48] Link to 3333: 7345 packets sent, 1539 packets lost, loss rate 0.209530
+[2020-12-24 07:59:15.481] Link to 4444: 100 packets sent, 79 packets lost, loss rate 0.790000
+
+[2020-12-24 07:59:15.872] Node 2222 Routing Table
+- (0.210) -> Node 3333; Next hop -> Node 3333
+- (0.100) -> Node 1111; Next hop -> Node 1111
+- (0.833) -> Node 4444; Next hop -> Node 1111
+
+[2020-12-24 07:59:16.485] Link to 3333: 27243 packets sent, 5586 packets lost, loss rate 0.205043
+[2020-12-24 07:59:16.486] Link to 4444: 177 packets sent, 137 packets lost, loss rate 0.774011
+[2020-12-24 07:59:17.488] Link to 3333: 45509 packets sent, 9255 packets lost, loss rate 0.203366
+[2020-12-24 07:59:17.488] Link to 4444: 232 packets sent, 184 packets lost, loss rate 0.793103
+[2020-12-24 07:59:18.489] Link to 3333: 61133 packets sent, 12392 packets lost, loss rate 0.202706
+[2020-12-24 07:59:18.489] Link to 4444: 297 packets sent, 239 packets lost, loss rate 0.804714
+[2020-12-24 07:59:19.494] Link to 3333: 72823 packets sent, 14752 packets lost, loss rate 0.202573
+[2020-12-24 07:59:19.495] Link to 4444: 366 packets sent, 297 packets lost, loss rate 0.811475
+[2020-12-24 07:59:20.497] Link to 3333: 85101 packets sent, 17209 packets lost, loss rate 0.202219
+[2020-12-24 07:59:20.498] Link to 4444: 426 packets sent, 349 packets lost, loss rate 0.819249
+[2020-12-24 07:59:21.502] Link to 3333: 100267 packets sent, 20197 packets lost, loss rate 0.201432
+[2020-12-24 07:59:21.503] Link to 4444: 490 packets sent, 401 packets lost, loss rate 0.818367
+[2020-12-24 07:59:22.504] Link to 3333: 114099 packets sent, 22913 packets lost, loss rate 0.200817
+[2020-12-24 07:59:22.504] Link to 4444: 584 packets sent, 473 packets lost, loss rate 0.809932
+[2020-12-24 07:59:23.505] Link to 3333: 126579 packets sent, 25414 packets lost, loss rate 0.200776
+[2020-12-24 07:59:23.505] Link to 4444: 682 packets sent, 548 packets lost, loss rate 0.803519
+[2020-12-24 07:59:24.506] Link to 3333: 140553 packets sent, 28197 packets lost, loss rate 0.200615
+[2020-12-24 07:59:24.506] Link to 4444: 763 packets sent, 613 packets lost, loss rate 0.803408
+[2020-12-24 07:59:25.508] Link to 3333: 154442 packets sent, 30979 packets lost, loss rate 0.200587
+[2020-12-24 07:59:25.509] Link to 4444: 823 packets sent, 662 packets lost, loss rate 0.804374
+[2020-12-24 07:59:26.51] Link to 3333: 170278 packets sent, 34200 packets lost, loss rate 0.200848
+[2020-12-24 07:59:26.51] Link to 4444: 913 packets sent, 733 packets lost, loss rate 0.802848
+[2020-12-24 07:59:27.513] Link to 3333: 182977 packets sent, 36741 packets lost, loss rate 0.200796
+[2020-12-24 07:59:27.513] Link to 4444: 977 packets sent, 785 packets lost, loss rate 0.803480
+[2020-12-24 07:59:28.516] Link to 3333: 196495 packets sent, 39455 packets lost, loss rate 0.200794
+[2020-12-24 07:59:28.517] Link to 4444: 1052 packets sent, 845 packets lost, loss rate 0.803232
+[2020-12-24 07:59:29.517] Link to 3333: 210057 packets sent, 42151 packets lost, loss rate 0.200665
+[2020-12-24 07:59:29.518] Link to 4444: 1149 packets sent, 916 packets lost, loss rate 0.797215
+[2020-12-24 07:59:30.52] Link to 3333: 221361 packets sent, 44407 packets lost, loss rate 0.200609
+[2020-12-24 07:59:30.521] Link to 4444: 1231 packets sent, 987 packets lost, loss rate 0.801787
+[2020-12-24 07:59:31.524] Link to 3333: 235677 packets sent, 47296 packets lost, loss rate 0.200681
+[2020-12-24 07:59:31.525] Link to 4444: 1308 packets sent, 1048 packets lost, loss rate 0.801223
+[2020-12-24 07:59:32.525] Link to 3333: 249576 packets sent, 50078 packets lost, loss rate 0.200652
+[2020-12-24 07:59:32.526] Link to 4444: 1363 packets sent, 1100 packets lost, loss rate 0.807043
+[2020-12-24 07:59:33.53] Link to 3333: 268601 packets sent, 53923 packets lost, loss rate 0.200755
+[2020-12-24 07:59:33.53] Link to 4444: 1413 packets sent, 1150 packets lost, loss rate 0.813871
+
+[2020-12-24 07:59:34.041] Node 2222 Routing Table
+- (0.201) -> Node 3333; Next hop -> Node 3333
+- (0.100) -> Node 1111; Next hop -> Node 1111
+- (0.695) -> Node 4444; Next hop -> Node 3333
+
+Output 3:
+2222 0.000000
+[2020-12-24 07:59:14.44] Link to 4444: 45 packets sent, 25 packets lost, loss rate 0.555556
+
+[2020-12-24 07:59:14.997] Node 3333 Routing Table
+- (0.556) -> Node 1111; Next hop -> Node 4444
+- (0.556) -> Node 4444; Next hop -> Node 4444
+- (0.556) -> Node 2222; Next hop -> Node 4444
+
+[2020-12-24 07:59:15.554] Link to 4444: 1448 packets sent, 704 packets lost, loss rate 0.486188
+
+[2020-12-24 07:59:15.983] Node 3333 Routing Table
+- (0.309) -> Node 1111; Next hop -> Node 2222
+- (0.486) -> Node 4444; Next hop -> Node 4444
+- (0.556) -> Node 2222; Next hop -> Node 4444
+
+[2020-12-24 07:59:16.557] Link to 4444: 2693 packets sent, 1334 packets lost, loss rate 0.495358
+[2020-12-24 07:59:17.557] Link to 4444: 4375 packets sent, 2193 packets lost, loss rate 0.501257
+[2020-12-24 07:59:18.558] Link to 4444: 5969 packets sent, 2982 packets lost, loss rate 0.499581
+[2020-12-24 07:59:19.562] Link to 4444: 7311 packets sent, 3653 packets lost, loss rate 0.499658
+[2020-12-24 07:59:20.563] Link to 4444: 8151 packets sent, 4088 packets lost, loss rate 0.501534
+[2020-12-24 07:59:21.569] Link to 4444: 8977 packets sent, 4486 packets lost, loss rate 0.499722
+[2020-12-24 07:59:22.57] Link to 4444: 11235 packets sent, 5572 packets lost, loss rate 0.495950
+[2020-12-24 07:59:23.575] Link to 4444: 12906 packets sent, 6416 packets lost, loss rate 0.497133
+[2020-12-24 07:59:24.577] Link to 4444: 14341 packets sent, 7088 packets lost, loss rate 0.494247
+[2020-12-24 07:59:25.579] Link to 4444: 15919 packets sent, 7896 packets lost, loss rate 0.496011
+[2020-12-24 07:59:26.581] Link to 4444: 17731 packets sent, 8797 packets lost, loss rate 0.496137
+[2020-12-24 07:59:27.583] Link to 4444: 20054 packets sent, 9925 packets lost, loss rate 0.494914
+[2020-12-24 07:59:28.587] Link to 4444: 21556 packets sent, 10680 packets lost, loss rate 0.495454
+[2020-12-24 07:59:29.592] Link to 4444: 23185 packets sent, 11479 packets lost, loss rate 0.495105
+[2020-12-24 07:59:30.593] Link to 4444: 24545 packets sent, 12144 packets lost, loss rate 0.494765
+[2020-12-24 07:59:31.595] Link to 4444: 26689 packets sent, 13203 packets lost, loss rate 0.494698
+[2020-12-24 07:59:32.599] Link to 4444: 27486 packets sent, 13648 packets lost, loss rate 0.496544
+
+[2020-12-24 07:59:33.039] Node 3333 Routing Table
+- (0.300) -> Node 1111; Next hop -> Node 2222
+- (0.495) -> Node 4444; Next hop -> Node 4444
+- (0.201) -> Node 2222; Next hop -> Node 2222
+
+
+Output 4:
+
+
+[2020-12-24 07:59:14.83] Node 4444 Routing Table
+- (0.556) -> Node 3333; Next hop -> Node 3333
+- (0.833) -> Node 1111; Next hop -> Node 2222
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:15.562] Node 4444 Routing Table
+- (0.556) -> Node 3333; Next hop -> Node 3333
+- (1.111) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:16.066] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:16.569] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:17.071] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:17.573] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:18.075] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:18.577] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:19.082] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:19.583] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:20.089] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:20.59] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:21.093] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:21.594] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:22.095] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:22.599] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:23.1] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:23.601] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:24.102] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:24.608] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:25.11] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:25.613] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:26.114] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:26.619] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:27.12] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:27.621] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:28.127] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:28.629] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:29.13] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:29.633] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:30.134] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:30.635] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:31.136] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:31.64] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+
+
+[2020-12-24 07:59:32.145] Node 4444 Routing Table
+- (0.486) -> Node 3333; Next hop -> Node 3333
+- (0.795) -> Node 1111; Next hop -> Node 3333
+- (0.000) -> Node 2222; Next hop -> Node 3333
+

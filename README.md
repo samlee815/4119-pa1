@@ -1,29 +1,40 @@
-Simple netchat client & server
-programming assignment 1 for CSEE4119, Fall 2020
+PROGRAMMING ASSIGNMENT 2
+Yang Li
+yl4111
 
-DESIGNS:
 
-Implementing the UdpChat using java, including three files UdpChat.java, Entry.java and ClientIO.java
-Entry.java basically implements a class to contain the  entry of client information table for both 
-server and client and corresponding methods that can be utilized. ClientIO.java implements the runnable
-interace and allow us to create a thread that takes stdin input and put the message in a synchronized 
-list that can be used by the main thread.
+All the test results are embedded in ./partN/test.txt
 
-In UdpChat.java, the main method do the error checking of command line arguments and start corresponding 
-serverLoop and clientLoop. And in clientLoop and serverLoop we use HashTable to store client information
-table.and for serverloop the server deals with different kinds of messages and send corresponding acks 
-to them. And we design the registration and deregistration request to be reg|nickname|port and 
-der|nicjname|port and their corresponding ack to be ack|reg, ack|der (and ack|dec to decline reg requests)
-And we also have offline message sent to server in the format off|destination|sender|message and the ack
-in the form ack|off|destination|sender|message. And we keep a hashmap to store offline messages sent to
-server. and transmitTable method and transmitOffmsg is used when server is to broadcast table updates or
-offline messages to clients.
 
-In the clientLoop we have loop to cope with reg/dereg requests at the beginning, and compareLoop to cope
-with sending message and receiving corresponding ack, the message in sent in form msg|destination|sender
-|message. and the corresponding ack has form ack|msg|dest|sender|message. And when the message is not received
-by sender. the offLoop takes care of the offlinemessage sending to server. And finnally the handle method does
-a lazy timed receive on the socket and deal with the meassage received on the socket.
+part1
 
-To act like a normal chat client, we only allow client to send dereg requests that matches its own nickname
+ignore part1, it is just the repository of programming assignment 1
 
+
+part2 gbnnode
+
+For this part, I created the GbnIO.java to implement thread that 
+takes in text input in stdin and parse message and Senderside.java
+to cope with sending and receiving packets with argument mode to 
+specified what kind of mode they are in, and the resendTask java
+implements a runnable interface that can be used by SchedPool in
+timer.java, timer.java basically implements a timer required by 
+the specification to control the timeout of acks
+
+
+
+part3 dvnode
+dvnode.java: main driver class
+printTable.java: Runnable task that is periodically scheduled by timer
+timer.java: timer utility
+
+part4 cnnode
+cnnode.java : main driver class
+ackThread.java : the thread to receive acks, increment ack counts and move window
+dvSend.java : the thread that send updates of distance vectors
+dvThread.java: the thread to receive dv updates msg and perform Bellman-Ford algorithm
+linkCost.java: the thread that periodically recalculates the link weight in probe sender
+linkUpdate.java: the thread that sends link weight update message from probe senders to probe receiever
+probeThread.java : the thread that sends out probe packages
+resendProbe.java: the thread that resends probe package when there is a timeout
+timer.java : an java implementation of timer utility

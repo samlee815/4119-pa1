@@ -1,0 +1,428 @@
+Test.txt
+
+
+mode 0 : no -d -p specified
+command line arguments:
+	java gbnnode 1111 2222 5
+	java gbnnode 2222 1111 5
+
+type send thisisthemsg in prompt 1
+
+output prompt 1:
+node > send thisisthemsg
+2020-12-24 07:35:40.677 packet 0t sent
+2020-12-24 07:35:40.699 Ack 0 received, window moves to 1
+2020-12-24 07:35:40.701 packet 1h sent
+2020-12-24 07:35:40.701 packet 2i sent
+2020-12-24 07:35:40.701 packet 3s sent
+2020-12-24 07:35:40.702 packet 4i sent
+2020-12-24 07:35:40.702 packet 5s sent
+2020-12-24 07:35:40.704 Ack 1 received, window moves to 2
+2020-12-24 07:35:40.704 packet 6t sent
+2020-12-24 07:35:40.704 Ack 2 received, window moves to 3
+2020-12-24 07:35:40.704 packet 7h sent
+2020-12-24 07:35:40.704 Ack 3 received, window moves to 4
+2020-12-24 07:35:40.704 packet 8e sent
+2020-12-24 07:35:40.705 Ack 4 received, window moves to 5
+2020-12-24 07:35:40.705 packet 9m sent
+2020-12-24 07:35:40.705 Ack 5 received, window moves to 6
+2020-12-24 07:35:40.705 packet 10s sent
+2020-12-24 07:35:40.705 Ack 6 received, window moves to 7
+2020-12-24 07:35:40.705 packet 11g sent
+2020-12-24 07:35:40.706 Ack 7 received, window moves to 8
+2020-12-24 07:35:40.706 Ack 8 received, window moves to 9
+2020-12-24 07:35:40.706 Ack 9 received, window moves to 10
+2020-12-24 07:35:40.706 Ack 10 received, window moves to 11
+2020-12-24 07:35:40.707 Ack 11 received, window moves to 12
+[Summary] : No packets discarded
+
+output prompt 2:
+node > 2020-12-24 07:35:40.677 packet 0t received
+2020-12-24 07:35:40.699 Ack 0 sent, expecting packet1
+2020-12-24 07:35:40.701 packet 1h received
+2020-12-24 07:35:40.701 Ack 1 sent, expecting packet2
+2020-12-24 07:35:40.701 packet 2i received
+2020-12-24 07:35:40.702 Ack 2 sent, expecting packet3
+2020-12-24 07:35:40.702 packet 3s received
+2020-12-24 07:35:40.702 Ack 3 sent, expecting packet4
+2020-12-24 07:35:40.702 packet 4i received
+2020-12-24 07:35:40.702 Ack 4 sent, expecting packet5
+2020-12-24 07:35:40.702 packet 5s received
+2020-12-24 07:35:40.702 Ack 5 sent, expecting packet6
+2020-12-24 07:35:40.704 packet 6t received
+2020-12-24 07:35:40.704 Ack 6 sent, expecting packet7
+2020-12-24 07:35:40.704 packet 7h received
+2020-12-24 07:35:40.704 Ack 7 sent, expecting packet8
+2020-12-24 07:35:40.704 packet 8e received
+2020-12-24 07:35:40.705 Ack 8 sent, expecting packet9
+2020-12-24 07:35:40.705 packet 9m received
+2020-12-24 07:35:40.705 Ack 9 sent, expecting packet10
+2020-12-24 07:35:40.705 packet 10s received
+2020-12-24 07:35:40.705 Ack 10 sent, expecting packet11
+2020-12-24 07:35:40.705 packet 11g received
+2020-12-24 07:35:40.705 Ack 11 sent, expecting packet12
+[Summary] :No packets discarded
+
+
+
+mode 2: specifying -d mode
+
+mode 0 : no -d -p specified
+command line arguments:
+    java gbnnode 1111 2222 5 -d 10
+    java gbnnode 2222 1111 5 -d 15
+
+type node > send fsjakdhkfuhildsbkcyugkbjaidlschxibiugafbkw in prompt 1
+
+
+output 1:
+
+node > send fsjakdhkfuhildsbkcyugkbjaidlschxibiugafbkw
+2020-12-24 07:38:55.772 packet 0f sent
+2020-12-24 07:38:55.794 packet 1s sent
+2020-12-24 07:38:55.794 packet 2j sent
+2020-12-24 07:38:55.794 packet 3a sent
+2020-12-24 07:38:55.794 packet 4k sent
+2020-12-24 07:38:55.794 packet 5d sent
+2020-12-24 07:38:55.794 Ack 0 received, window moves to 1
+2020-12-24 07:38:55.795 Ack 1 received, window moves to 2
+2020-12-24 07:38:55.795 packet 6h sent
+2020-12-24 07:38:55.795 Ack 2 received, window moves to 3
+2020-12-24 07:38:55.795 packet 7k sent
+2020-12-24 07:38:55.796 Ack 3 received, window moves to 4
+2020-12-24 07:38:55.796 packet 8f sent
+2020-12-24 07:38:55.796 Ack 4 received, window moves to 5
+2020-12-24 07:38:55.796 packet 9u sent
+2020-12-24 07:38:55.796 Ack 5 received, window moves to 6
+2020-12-24 07:38:55.796 packet 10h sent
+2020-12-24 07:38:55.797 Ack 6 received, window moves to 7
+2020-12-24 07:38:55.797 packet 11i sent
+2020-12-24 07:38:55.797 Ack 7 received, window moves to 8
+2020-12-24 07:38:55.797 packet 12l sent
+2020-12-24 07:38:55.797 Ack 8 received, window moves to 9
+2020-12-24 07:38:55.797 packet 13d sent
+2020-12-24 07:38:55.797 Ack 9 discarded
+2020-12-24 07:38:55.801 Ack 10 received, window moves to 11
+2020-12-24 07:38:55.801 packet 14s sent
+2020-12-24 07:38:55.801 packet 15b sent
+2020-12-24 07:38:55.801 Ack 11 received, window moves to 12
+2020-12-24 07:38:55.801 packet 16k sent
+2020-12-24 07:38:55.801 Ack 12 received, window moves to 13
+2020-12-24 07:38:55.801 packet 17c sent
+2020-12-24 07:38:55.802 Ack 13 received, window moves to 14
+2020-12-24 07:38:55.802 packet 18y sent
+2020-12-24 07:38:55.802 Ack 13 received, window moves to 14
+2020-12-24 07:38:55.805 Ack 13 received, window moves to 14
+2020-12-24 07:38:55.805 Ack 13 received, window moves to 14
+2020-12-24 07:38:55.806 Ack 13 received, window moves to 14
+2020-12-24 07:38:56.307 Packet 14 timeout
+2020-12-24 07:38:56.308 Ack 14 received, window moves to 15
+2020-12-24 07:38:56.308 packet 14s sent
+2020-12-24 07:38:56.308 packet 15b sent
+2020-12-24 07:38:56.308 packet 19u sent
+2020-12-24 07:38:56.308 packet 16k sent
+2020-12-24 07:38:56.308 Ack 14 discarded
+2020-12-24 07:38:56.308 packet 17c sent
+2020-12-24 07:38:56.308 packet 18y sent
+2020-12-24 07:38:56.308 packet 20g sent
+2020-12-24 07:38:56.308 Ack 15 received, window moves to 16
+2020-12-24 07:38:56.309 Ack 16 received, window moves to 17
+2020-12-24 07:38:56.309 packet 21k sent
+2020-12-24 07:38:56.309 Ack 17 received, window moves to 18
+2020-12-24 07:38:56.309 packet 22b sent
+2020-12-24 07:38:56.309 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.309 packet 23j sent
+2020-12-24 07:38:56.309 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.309 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.309 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.309 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.81 Packet 19 timeout
+2020-12-24 07:38:56.81 packet 19u sent
+2020-12-24 07:38:56.81 packet 20g sent
+2020-12-24 07:38:56.81 packet 21k sent
+2020-12-24 07:38:56.81 packet 22b sent
+2020-12-24 07:38:56.81 packet 23j sent
+2020-12-24 07:38:56.81 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.81 Ack 18 discarded
+2020-12-24 07:38:56.811 Ack 18 received, window moves to 19
+2020-12-24 07:38:56.811 Ack 18 received, window moves to 19
+2020-12-24 07:38:57.311 Packet 19 timeout
+2020-12-24 07:38:57.312 packet 19u sent
+2020-12-24 07:38:57.312 packet 20g sent
+2020-12-24 07:38:57.312 packet 21k sent
+2020-12-24 07:38:57.312 packet 22b sent
+2020-12-24 07:38:57.312 Ack 19 received, window moves to 20
+2020-12-24 07:38:57.312 packet 24a sent
+2020-12-24 07:38:57.312 packet 23j sent
+2020-12-24 07:38:57.312 Ack 20 received, window moves to 21
+2020-12-24 07:38:57.312 packet 25i sent
+2020-12-24 07:38:57.312 Ack 21 received, window moves to 22
+2020-12-24 07:38:57.312 packet 26d sent
+2020-12-24 07:38:57.312 Ack 22 received, window moves to 23
+2020-12-24 07:38:57.312 packet 27l sent
+2020-12-24 07:38:57.312 Ack 22 received, window moves to 23
+2020-12-24 07:38:57.312 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.313 packet 28s sent
+2020-12-24 07:38:57.313 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.313 Ack 23 discarded
+2020-12-24 07:38:57.313 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.313 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.813 Packet 24 timeout
+2020-12-24 07:38:57.813 packet 24a sent
+2020-12-24 07:38:57.813 packet 25i sent
+2020-12-24 07:38:57.813 packet 26d sent
+2020-12-24 07:38:57.813 packet 27l sent
+2020-12-24 07:38:57.814 packet 28s sent
+2020-12-24 07:38:57.814 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.814 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.814 Ack 23 received, window moves to 24
+2020-12-24 07:38:57.814 Ack 23 received, window moves to 24
+2020-12-24 07:38:58.316 Packet 24 timeout
+2020-12-24 07:38:58.316 packet 24a sent
+2020-12-24 07:38:58.316 packet 25i sent
+2020-12-24 07:38:58.316 packet 26d sent
+2020-12-24 07:38:58.316 packet 27l sent
+2020-12-24 07:38:58.316 packet 28s sent
+2020-12-24 07:38:58.316 Ack 24 received, window moves to 25
+2020-12-24 07:38:58.316 packet 29c sent
+2020-12-24 07:38:58.317 Ack 25 received, window moves to 26
+2020-12-24 07:38:58.317 packet 30h sent
+2020-12-24 07:38:58.318 Ack 26 received, window moves to 27
+2020-12-24 07:38:58.318 packet 31x sent
+2020-12-24 07:38:58.318 Ack 27 discarded
+2020-12-24 07:38:58.318 Ack 28 received, window moves to 29
+2020-12-24 07:38:58.318 packet 32i sent
+2020-12-24 07:38:58.319 packet 33b sent
+2020-12-24 07:38:58.319 Ack 29 received, window moves to 30
+2020-12-24 07:38:58.319 packet 34i sent
+2020-12-24 07:38:58.319 Ack 30 received, window moves to 31
+2020-12-24 07:38:58.319 packet 35u sent
+2020-12-24 07:38:58.319 Ack 31 received, window moves to 32
+2020-12-24 07:38:58.319 packet 36g sent
+2020-12-24 07:38:58.319 Ack 32 received, window moves to 33
+2020-12-24 07:38:58.319 packet 37a sent
+2020-12-24 07:38:58.319 Ack 33 received, window moves to 34
+2020-12-24 07:38:58.319 packet 38f sent
+2020-12-24 07:38:58.319 Ack 33 received, window moves to 34
+2020-12-24 07:38:58.319 Ack 33 received, window moves to 34
+2020-12-24 07:38:58.319 Ack 33 received, window moves to 34
+2020-12-24 07:38:58.319 Ack 33 discarded
+2020-12-24 07:38:58.819 Packet 34 timeout
+2020-12-24 07:38:58.82 packet 34i sent
+2020-12-24 07:38:58.82 packet 35u sent
+2020-12-24 07:38:58.82 packet 36g sent
+2020-12-24 07:38:58.82 packet 37a sent
+2020-12-24 07:38:58.82 packet 38f sent
+2020-12-24 07:38:58.82 Ack 34 received, window moves to 35
+2020-12-24 07:38:58.82 packet 39b sent
+2020-12-24 07:38:58.82 Ack 35 received, window moves to 36
+2020-12-24 07:38:58.82 packet 40k sent
+2020-12-24 07:38:58.82 Ack 36 received, window moves to 37
+2020-12-24 07:38:58.82 packet 41w sent
+2020-12-24 07:38:58.821 Ack 37 received, window moves to 38
+2020-12-24 07:38:58.821 Ack 38 received, window moves to 39
+2020-12-24 07:38:58.821 Ack 39 received, window moves to 40
+2020-12-24 07:38:58.821 Ack 40 received, window moves to 41
+2020-12-24 07:38:58.821 Ack 41 received, window moves to 42
+[Summary] :6/69packets discarded, loss rate = 0.08695652173913043
+
+
+output 2:
+
+2020-12-24 07:38:55.794 Ack 0 sent, expecting packet1
+2020-12-24 07:38:55.795 packet 1s received
+2020-12-24 07:38:55.795 Ack 1 sent, expecting packet2
+2020-12-24 07:38:55.795 packet 2j received
+2020-12-24 07:38:55.795 Ack 2 sent, expecting packet3
+2020-12-24 07:38:55.795 packet 3a received
+2020-12-24 07:38:55.795 Ack 3 sent, expecting packet4
+2020-12-24 07:38:55.795 packet 4k received
+2020-12-24 07:38:55.795 Ack 4 sent, expecting packet5
+2020-12-24 07:38:55.795 packet 5d received
+2020-12-24 07:38:55.795 Ack 5 sent, expecting packet6
+2020-12-24 07:38:55.796 packet 6h received
+2020-12-24 07:38:55.796 Ack 6 sent, expecting packet7
+2020-12-24 07:38:55.796 packet 7k received
+2020-12-24 07:38:55.796 Ack 7 sent, expecting packet8
+2020-12-24 07:38:55.796 packet 8f received
+2020-12-24 07:38:55.796 Ack 8 sent, expecting packet9
+2020-12-24 07:38:55.796 packet 9u received
+2020-12-24 07:38:55.796 Ack 9 sent, expecting packet10
+2020-12-24 07:38:55.796 packet 10h received
+2020-12-24 07:38:55.796 Ack 10 sent, expecting packet11
+2020-12-24 07:38:55.797 packet 11i received
+2020-12-24 07:38:55.797 Ack 11 sent, expecting packet12
+2020-12-24 07:38:55.797 packet 12l received
+2020-12-24 07:38:55.797 Ack 12 sent, expecting packet13
+2020-12-24 07:38:55.797 packet 13d received
+2020-12-24 07:38:55.797 Ack 13 sent, expecting packet14
+2020-12-24 07:38:55.801 packet 14s discarded
+2020-12-24 07:38:55.802 packet 15b received
+2020-12-24 07:38:55.802 Ack 13 sent, expecting packet14
+2020-12-24 07:38:55.803 packet 16k received
+2020-12-24 07:38:55.804 Ack 13 sent, expecting packet14
+2020-12-24 07:38:55.804 packet 17c received
+2020-12-24 07:38:55.805 Ack 13 sent, expecting packet14
+2020-12-24 07:38:55.806 packet 18y received
+2020-12-24 07:38:55.806 Ack 13 sent, expecting packet14
+2020-12-24 07:38:56.308 packet 14s received
+2020-12-24 07:38:56.308 Ack 14 sent, expecting packet15
+2020-12-24 07:38:56.308 packet 19u received
+2020-12-24 07:38:56.308 Ack 14 sent, expecting packet15
+2020-12-24 07:38:56.308 packet 15b received
+2020-12-24 07:38:56.308 Ack 15 sent, expecting packet16
+2020-12-24 07:38:56.309 packet 16k received
+2020-12-24 07:38:56.309 Ack 16 sent, expecting packet17
+2020-12-24 07:38:56.309 packet 17c received
+2020-12-24 07:38:56.309 Ack 17 sent, expecting packet18
+2020-12-24 07:38:56.309 packet 18y received
+2020-12-24 07:38:56.309 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.309 packet 20g received
+2020-12-24 07:38:56.309 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.309 packet 21k received
+2020-12-24 07:38:56.309 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.309 packet 22b received
+2020-12-24 07:38:56.309 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.309 packet 23j received
+2020-12-24 07:38:56.309 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.81 packet 19u discarded
+2020-12-24 07:38:56.81 packet 20g received
+2020-12-24 07:38:56.81 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.81 packet 21k received
+2020-12-24 07:38:56.81 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.81 packet 22b received
+2020-12-24 07:38:56.811 Ack 18 sent, expecting packet19
+2020-12-24 07:38:56.811 packet 23j received
+2020-12-24 07:38:56.811 Ack 18 sent, expecting packet19
+2020-12-24 07:38:57.312 packet 19u received
+2020-12-24 07:38:57.312 Ack 19 sent, expecting packet20
+2020-12-24 07:38:57.312 packet 20g received
+2020-12-24 07:38:57.312 Ack 20 sent, expecting packet21
+2020-12-24 07:38:57.312 packet 21k received
+2020-12-24 07:38:57.312 Ack 21 sent, expecting packet22
+2020-12-24 07:38:57.312 packet 22b received
+2020-12-24 07:38:57.312 Ack 22 sent, expecting packet23
+2020-12-24 07:38:57.312 packet 24a received
+2020-12-24 07:38:57.312 Ack 22 sent, expecting packet23
+2020-12-24 07:38:57.312 packet 23j received
+2020-12-24 07:38:57.312 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.313 packet 25i received
+2020-12-24 07:38:57.313 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.313 packet 26d received
+2020-12-24 07:38:57.313 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.313 packet 27l received
+2020-12-24 07:38:57.313 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.313 packet 28s received
+2020-12-24 07:38:57.313 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.813 packet 24a discarded
+2020-12-24 07:38:57.813 packet 25i received
+2020-12-24 07:38:57.814 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.814 packet 26d received
+2020-12-24 07:38:57.814 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.814 packet 27l received
+2020-12-24 07:38:57.814 Ack 23 sent, expecting packet24
+2020-12-24 07:38:57.814 packet 28s received
+2020-12-24 07:38:57.814 Ack 23 sent, expecting packet24
+2020-12-24 07:38:58.316 packet 24a received
+2020-12-24 07:38:58.316 Ack 24 sent, expecting packet25
+2020-12-24 07:38:58.316 packet 25i received
+2020-12-24 07:38:58.317 Ack 25 sent, expecting packet26
+2020-12-24 07:38:58.317 packet 26d received
+2020-12-24 07:38:58.317 Ack 26 sent, expecting packet27
+2020-12-24 07:38:58.317 packet 27l received
+2020-12-24 07:38:58.317 Ack 27 sent, expecting packet28
+2020-12-24 07:38:58.317 packet 28s received
+2020-12-24 07:38:58.317 Ack 28 sent, expecting packet29
+2020-12-24 07:38:58.317 packet 29c received
+2020-12-24 07:38:58.317 Ack 29 sent, expecting packet30
+2020-12-24 07:38:58.317 packet 30h received
+2020-12-24 07:38:58.317 Ack 30 sent, expecting packet31
+2020-12-24 07:38:58.318 packet 31x received
+2020-12-24 07:38:58.318 Ack 31 sent, expecting packet32
+2020-12-24 07:38:58.319 packet 32i received
+2020-12-24 07:38:58.319 Ack 32 sent, expecting packet33
+2020-12-24 07:38:58.319 packet 33b received
+2020-12-24 07:38:58.319 Ack 33 sent, expecting packet34
+2020-12-24 07:38:58.319 packet 34i discarded
+2020-12-24 07:38:58.319 packet 35u received
+2020-12-24 07:38:58.319 Ack 33 sent, expecting packet34
+2020-12-24 07:38:58.319 packet 36g received
+2020-12-24 07:38:58.319 Ack 33 sent, expecting packet34
+2020-12-24 07:38:58.319 packet 37a received
+2020-12-24 07:38:58.319 Ack 33 sent, expecting packet34
+2020-12-24 07:38:58.319 packet 38f received
+2020-12-24 07:38:58.319 Ack 33 sent, expecting packet34
+2020-12-24 07:38:58.82 packet 34i received
+2020-12-24 07:38:58.82 Ack 34 sent, expecting packet35
+2020-12-24 07:38:58.82 packet 35u received
+2020-12-24 07:38:58.82 Ack 35 sent, expecting packet36
+2020-12-24 07:38:58.82 packet 36g received
+2020-12-24 07:38:58.82 Ack 36 sent, expecting packet37
+2020-12-24 07:38:58.82 packet 37a received
+2020-12-24 07:38:58.821 Ack 37 sent, expecting packet38
+2020-12-24 07:38:58.821 packet 38f received
+2020-12-24 07:38:58.821 Ack 38 sent, expecting packet39
+2020-12-24 07:38:58.821 packet 39b received
+2020-12-24 07:38:58.821 Ack 39 sent, expecting packet40
+2020-12-24 07:38:58.821 packet 40k received
+2020-12-24 07:38:58.821 Ack 40 sent, expecting packet41
+2020-12-24 07:38:58.821 packet 41w received
+2020-12-24 07:38:58.821 Ack 41 sent, expecting packet42
+[Summary] :4/73 packets discarded, loss rate = 0.0547945205479452
+
+
+specifiying -p mode:
+
+command line:
+	java gbnnode 1111 2222 5 -p 0.1
+	java gbnnode 2222 1111 5 -p 0.1
+
+output 1:
+node > send abcdefg
+2020-12-24 07:44:01.857 packet 0a sent
+2020-12-24 07:44:01.879 packet 1b sent
+2020-12-24 07:44:01.88 packet 2c sent
+2020-12-24 07:44:01.88 packet 3d sent
+2020-12-24 07:44:01.88 packet 4e sent
+2020-12-24 07:44:01.879 Ack 0 discarded
+2020-12-24 07:44:01.885 packet 5f sent
+2020-12-24 07:44:01.886 packet 6g sent
+2020-12-24 07:44:01.885 Ack 1 received, window moves to 2
+2020-12-24 07:44:01.887 Ack 2 received, window moves to 3
+2020-12-24 07:44:01.887 Ack 2 received, window moves to 3
+2020-12-24 07:44:01.887 Ack 2 received, window moves to 3
+2020-12-24 07:44:01.888 Ack 2 received, window moves to 3
+2020-12-24 07:44:02.388 Packet 3 timeout
+2020-12-24 07:44:02.389 Ack 3 discarded
+2020-12-24 07:44:02.389 packet 3d sent
+2020-12-24 07:44:02.389 packet 4e sent
+2020-12-24 07:44:02.389 packet 5f sent
+2020-12-24 07:44:02.389 packet 6g sent
+2020-12-24 07:44:02.389 Ack 4 received, window moves to 5
+2020-12-24 07:44:02.39 Ack 5 received, window moves to 6
+2020-12-24 07:44:02.39 Ack 6 received, window moves to 7
+[Summary] :2/11packets discarded, loss rate = 0.18181818181818182
+
+output2:
+node > 2020-12-24 07:44:01.858 packet 0a received
+2020-12-24 07:44:01.879 Ack 0 sent, expecting packet1
+2020-12-24 07:44:01.879 packet 1b received
+2020-12-24 07:44:01.88 Ack 1 sent, expecting packet2
+2020-12-24 07:44:01.88 packet 2c received
+2020-12-24 07:44:01.88 Ack 2 sent, expecting packet3
+2020-12-24 07:44:01.88 packet 3d discarded
+2020-12-24 07:44:01.881 packet 4e received
+2020-12-24 07:44:01.881 Ack 2 sent, expecting packet3
+2020-12-24 07:44:01.886 packet 5f received
+2020-12-24 07:44:01.886 Ack 2 sent, expecting packet3
+2020-12-24 07:44:01.886 packet 6g received
+2020-12-24 07:44:01.886 Ack 2 sent, expecting packet3
+2020-12-24 07:44:02.389 packet 3d received
+2020-12-24 07:44:02.389 Ack 3 sent, expecting packet4
+2020-12-24 07:44:02.389 packet 4e received
+2020-12-24 07:44:02.389 Ack 4 sent, expecting packet5
+2020-12-24 07:44:02.389 packet 5f received
+2020-12-24 07:44:02.39 Ack 5 sent, expecting packet6
+2020-12-24 07:44:02.39 packet 6g received
+2020-12-24 07:44:02.39 Ack 6 sent, expecting packet7
+[Summary] :1/12 packets discarded, loss rate = 0.08333333333333333
